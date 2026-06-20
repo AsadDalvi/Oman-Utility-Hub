@@ -13,4 +13,4 @@ A responsive dark-mode full-stack bilingual dashboard (English/Arabic) built to 
 * **Backend:** Node.js + Express.js
 
 ## ⚙️ Click the Link below to check the Web Application
-* **Link will be provided soon**
+* **https://oman-smart-utility-hub.vercel.app/**
