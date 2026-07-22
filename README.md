@@ -1,6 +1,6 @@
 # Oman Smart Utility Hub ⚡ ⛽ 💰
 
-A version 2 of responsive full-stack bilingual dashboard (English/Arabic) built to calculate monthly rent, utility bills (Nama tariffs), regional transit fuel costs, and personal wealth budgets across the Sultanate of Oman.
+A version 2 of updated Oman Smart Utility Hub with responsive full-stack web application which has bilingual dashboard (English/Arabic) built to calculate monthly rent, utility bills (Nama tariffs), regional transit fuel costs, and personal wealth budgets across the Sultanate of Oman.
 
 
 ## 🌟 Core Features
