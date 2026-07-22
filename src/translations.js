@@ -69,8 +69,43 @@ export const translations = {
     // 7BHK Easter Egg Text
     easterEggTitle: "System Freeze! 🥶",
     easterEggMessage: "Too many ACs! You are cooling down all of Oman. Turn off some cooling units or use a normal house layout!",
-    btnReset: "Go Back / Reset Form"
+    btnReset: "Go Back / Reset Form",
+
+    // V2 UPDATE: Salary & Budget Planner Strings
+    btnBudget: "Salary & Budget Planner",
+    btnLedger: "Monthly Cost Ledger",
+    lblMonthlySalary: "Monthly Salary (OMR)",
+    lblHousingRent: "Monthly Housing Rent (OMR)",
+    lblRentRatio: "Rent-to-Income Ratio",
+    lblBudgetAdvisory: "Financial Status Advisory",
+    alertStressTitle: "⚠️ Financial Stress Alert!",
+    alertStressDesc: "Your housing rent consumes more than 35% of your total monthly income. This exceeds standard safe financial thresholds and may strain your monthly savings.",
+    alertSafeTitle: "✅ Healthy Budget Zone",
+    alertSafeDesc: "Your housing expenses are under the 35% threshold, leaving a sustainable allocation for utilities, savings, and investments.",
+    lblSalaryChartDonut: "Income Distribution Allocations",
+    lblChartRentShare: "Rent Allocation",
+    lblChartRemaining: "Disposable Balance",
+
+    // V2 UPDATE: Utility Summary Ledger Strings
+    lblLedgerHeading: "Muscat Living Cost Checklist",
+    lblLedgerDesc: "Select standard monthly fixed expenses to calculate cumulative allocation structures.",
+    lblLedgerRent: "Housing Rent Allocation",
+    lblLedgerElectric: "Electricity & Utility Costs",
+    lblLedgerFuel: "Commuter Petrol Expenses",
+    lblLedgerInternet: "Home High-Speed Fiber Internet",
+    lblLedgerTotal: "Cumulative Monthly Expenses",
+    alertLedgerWarningTitle: "⚠️ Ceiling Threshold Warning!",
+    alertLedgerWarningDesc: "Your total monthly living expenses have crossed the critical 380 OMR cumulative benchmark boundary. Budget optimization is highly advised.",
+    alertLedgerNormalTitle: "👍 Balanced Monthly Ledger",
+    alertLedgerNormalDesc: "Your cumulative living costs are under control within the safe 380 OMR baseline boundary.",
+
+    // V2 UPDATE: Theme Control Labels
+    lblToggleThemeDark: "Switch to Dark Obsidian Mode",
+    lblToggleThemeLight: "Switch to Crisp Light Mode"
+
   },
+
+
 
   
   ar: {
@@ -133,6 +168,39 @@ export const translations = {
 
     easterEggTitle: "تجمد النظام! 🥶",
     easterEggMessage: "مكيفات كثيرة جداً! أنت تقوم بتبريد عُمان بأكملها. يرجى إطفاء بعض التكييف أو اختيار حجم منزل طبيعي!",
-    btnReset: "العودة / إعادة تعيين الاستمارة"
+    btnReset: "العودة / إعادة تعيين الاستمارة",
+
+    // V2 UPDATE: Salary & Budget Planner Strings
+    btnBudget: "مخطط الراتب والميزانية",
+    btnLedger: "دفتر المصاريف الشهرية",
+    lblMonthlySalary: "الراتب الشهري الإجمالي (ر.ع.)",
+    lblHousingRent: "إيجار السكن الشهري (ر.ع.)",
+    lblRentRatio: "نسبة الإيجار من الدخل",
+    lblBudgetAdvisory: "مؤشر الوضع المالي للميزانية",
+    alertStressTitle: "⚠️ تنبيه الإجهاد المالي المتوقع!",
+    alertStressDesc: "قيمة الإيجار تستهلك أكثر من 35% من صافي دخلك الشهري الإجمالي. هذا يتجاوز الحدود المالية الآمنة وقد يؤثر سلباً على قدرتك الادخارية.",
+    alertSafeTitle: "✅ نطاق ميزانية مستقر وآمن",
+    alertSafeDesc: "مصاريف السكن تقع تحت حد الـ 35% الآمن، مما يترك مساحة كافية لتغطية الفواتير، الادخار المستدام، والاستثمارات الشخصية.",
+    lblSalaryChartDonut: "توزيع مخصصات الدخل الشهري",
+    lblChartRentShare: "مخصص الإيجار",
+    lblChartRemaining: "المبلغ المتبقي المتاح",
+
+    // V2 UPDATE: Utility Summary Ledger Strings
+    lblLedgerHeading: "دفتر مصاريف المعيشة في مسقط",
+    lblLedgerDesc: "حدد التكاليف الشهرية الثابتة لحساب وتحليل الهيكل الإجمالي لإنفاقك.",
+    lblLedgerRent: "مخصص إيجار السكن",
+    lblLedgerElectric: "تكاليف الكهرباء والمرافق العامة",
+    lblLedgerFuel: "مصاريف وقود السيارات للبنزين",
+    lblLedgerInternet: "اشتراك الإنترنت المنزلي (الألياف البصرية)",
+    lblLedgerTotal: "إجمالي المصاريف المعيشية المتراكمة",
+    alertLedgerWarningTitle: "⚠️ تحذير تجاوز السقف المالي المستهدف!",
+    alertLedgerWarningDesc: "إجمالي تكاليفك المعيشية الشهرية تجاوز السقف المالي المحدد البالغ 380 ريالاً عُمانياً. يُنصح بشدة بمراجعة الميزانية وتقليص الهدر.",
+    alertLedgerNormalTitle: "👍 دفتر مصاريف متوازن ومستقر",
+    alertLedgerNormalDesc: "تكاليفك المعيشية المتراكمة تحت السيطرة تماماً وتقع ضمن النطاق الآمن المستهدف (أقل من 380 ر.ع.).",
+
+    // V2 UPDATE: Theme Control Labels
+    lblToggleThemeDark: "التحويل إلى الوضع الليلي المظلم",
+    lblToggleThemeLight: "التحويل إلى الوضع النهاري المضيء"
+
   }
 };
