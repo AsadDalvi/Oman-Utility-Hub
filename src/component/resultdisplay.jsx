@@ -1,6 +1,6 @@
 // src/component/resultdisplay.jsx
 import React from "react";
-
+export default function ResultDisplay({ t, lang, theme, data, activeTab }) {
 /**
  * MetricBar — a labelled progress bar with an animated fill.
  */
@@ -21,9 +21,21 @@ function MetricBar({ label, value, unit, max, color = "teal", icon, lang }) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {icon && <span className="text-base leading-none">{icon}</span>}
-          <span className="text-sm font-medium text-slate-300">{label}</span>
+          <span
+            className={`text-sm font-medium ${
+           theme === "light" ? "text-slate-700" : "text-slate-300"
+         }`}
+        >
+      {label}
+     </span>
         </div>
-        <span className={`text-sm font-bold tabular-nums ${colorMap[color].replace("bg-", "text-")}`}>
+        <span
+       className={`text-sm font-bold tabular-nums ${
+          theme === "light"
+            ? "text-slate-900"
+            : "text-slate-100"
+          }`}
+          >
           {typeof value === "number" ? value.toLocaleString() : value}
           {unit && <span className="text-xs font-normal text-slate-500 mx-1">{unit}</span>}
         </span>
@@ -45,20 +57,20 @@ function PlaceholderState({ t, lang }) {
   const isRtl = lang === "ar";
   return (
     <div
-      className="bg-slate-900 border border-slate-800 rounded-2xl p-10 flex flex-col items-center justify-center text-center min-h-72"
+      className="bg-transparent rounded-2xl flex flex-col items-center justify-center text-center min-h-72 w-full transition-colors duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mb-5">
-        <svg className="w-8 h-8 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-5 transition-colors duration-200">
+        <svg className="w-8 h-8 text-slate-400 dark:text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
           <line x1="8" y1="21" x2="16" y2="21" />
           <line x1="12" y1="17" x2="12" y2="21" />
         </svg>
       </div>
-      <h3 className="text-slate-300 font-semibold text-base mb-2">
+      <h3 className="text-slate-800 dark:text-slate-300 font-semibold text-base mb-2 transition-colors duration-200">
         {isRtl ? "ملخص الحسابات" : "Calculation Summary"}
       </h3>
-      <p className="text-slate-500 text-sm max-w-xs leading-relaxed">
+      <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xs leading-relaxed transition-colors duration-200">
         {isRtl
           ? "أكمل البيانات في الاستمارة واضغط على زر الحساب لتظهر لك النتائج والتحليلات البيانية فوراً."
           : "Complete the form parameters and submit to visualize your bills and financial analytics instantly."}
@@ -67,10 +79,10 @@ function PlaceholderState({ t, lang }) {
   );
 }
 
+
 /**
  * ResultDisplay — main export.
  */
-export default function ResultDisplay({ t, lang, data, activeTab }) {
   const isRtl = lang === "ar";
   
   // Safely check if valid calculation data was returned from our Port 5000 backend server
@@ -140,7 +152,11 @@ export default function ResultDisplay({ t, lang, data, activeTab }) {
     <div className="space-y-4">
       {/* Main Metrics Panel Layout Container Box */}
       <div
-        className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg"
+        className={`border rounded-2xl p-6 shadow-lg transition-colors ${
+          theme === "light"
+          ? "bg-white border-slate-200"
+          : "bg-slate-900 border-slate-800"
+      }`}
         dir={isRtl ? "rtl" : "ltr"}
       >
         {/* Header Title block */}
@@ -150,7 +166,13 @@ export default function ResultDisplay({ t, lang, data, activeTab }) {
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
           </div>
-          <h2 className="text-base font-semibold text-slate-100">
+          <h2
+          className={`text-base font-semibold ${
+            theme === "light"
+            ? "text-slate-900"
+            : "text-slate-100"
+          }`}
+              >
             {t.resultsHeading}
           </h2>
         </div>
@@ -158,20 +180,19 @@ export default function ResultDisplay({ t, lang, data, activeTab }) {
         {/* Dynamic Metric Bars visual graph charts stack */}
         <div className="space-y-5">
           {metrics.map((m) => (
-            <MetricBar
-              key={m.key}
-              label={m.label}
-              value={m.value}
-              unit={m.unit}
-              max={maxVal}
-              color={m.color}
-              icon={m.icon}
-              lang={lang}
+             <MetricBar
+               key={m.key}
+               label={m.label}
+               value={m.value}
+               unit={m.unit}
+               max={maxVal}
+               color={m.color}
+               icon={m.icon}
+               lang={lang}
+               theme={theme}
             />
           ))}
         </div>
-
-
 
 
         {/* Summary Row Footprint Total */}
@@ -246,4 +267,3 @@ export default function ResultDisplay({ t, lang, data, activeTab }) {
     </div>
   );
 }
-

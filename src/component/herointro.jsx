@@ -71,7 +71,7 @@ const TIPS = [
 
 const VISIBLE = 3;
 
-export default function HeroIntro({ t, lang }) {
+export default function HeroIntro({ t, lang, theme, setActiveTab }) {
   const isRtl = lang === "ar";
   const [startIndex, setStartIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -120,15 +120,17 @@ export default function HeroIntro({ t, lang }) {
       {/* Welcome Text Container Area */}
       <div className="mb-12 text-center" dir={isRtl ? "rtl" : "ltr"}>
         {/* Main Header Brand Title */}
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-100 mb-3 leading-tight">
-          {t.title}
-        </h1>
+      <h1 className={`text-3xl sm:text-4xl font-bold mb-3 leading-tight transition-colors ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>
+        {t.title}
+      </h1>
         {/* Subtitle */}
         <p className="text-lg text-teal-400 font-medium mb-6">
           {t.subtitle}
         </p>
         {/* Core Introductory Paragraph Text */}
-        <p className="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed bg-slate-900/40 p-6 rounded-2xl border border-slate-800/60 shadow-md">
+        <p className={`text-sm sm:text-base max-w-3xl mx-auto leading-relaxed p-6 rounded-2xl border transition-all duration-300 shadow-md ${
+          theme === 'dark' ? 'bg-slate-900/40 border-slate-800/60 text-slate-300' : 'bg-white border-slate-200 text-slate-700'
+        }`}>
           {t.welcomeText}
         </p>
       </div>
@@ -136,8 +138,7 @@ export default function HeroIntro({ t, lang }) {
 
 
 
-
-      {/* Tips Carousel */}
+     {/* Tips Carousel */}
       <div>
         {/* Section Label */}
         <div
@@ -154,7 +155,7 @@ export default function HeroIntro({ t, lang }) {
           {/* Prev Arrow */}
           <button
             onClick={() => resetAuto("prev")}
-            className="shrink-0 w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 hover:bg-slate-700 hover:text-teal-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:ring-offset-slate-950 disabled:opacity-30 cursor-pointer"
+            className="shrink-0 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-950 disabled:opacity-30 cursor-pointer"
             aria-label="Previous tip"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -170,24 +171,33 @@ export default function HeroIntro({ t, lang }) {
               {visibleTips.map((tip, i) => (
                 <div
                   key={tip._key}
-                  className={`relative bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col gap-3 transition-all duration-300 ${i === 1 ? "ring-1 ring-teal-600/40 shadow-lg shadow-teal-900/20" : ""}`}
+                  className={`relative border rounded-xl p-5 flex flex-col gap-3 transition-all duration-300 ${
+                    theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900 shadow-sm'
+                  }`}
                   dir={isRtl ? "rtl" : "ltr"}
                 >
                   {/* Icon + Label */}
                   <div className="flex items-center gap-2">
                     <span className="text-2xl leading-none">{tip.icon}</span>
-                    <span className="text-xs font-semibold text-teal-400 uppercase tracking-wide">
+                    <span className="text-xs font-semibold text-teal-500 dark:text-teal-400 uppercase tracking-wide">
                       {tip.label[lang] || tip.label.en}
                     </span>
                   </div>
-                  {/* Tip Text */}
-                  <p className="text-sm text-slate-300 leading-relaxed flex-1">
-                    {tip[lang] || tip.en}
-                  </p>
+              {/* Tip Text */}
+              <p
+                className={`text-sm leading-relaxed flex-1 transition-colors duration-200 ${
+                  theme === "dark"
+                    ? "text-slate-300"
+                    : "text-slate-900 font-medium"
+                }`}
+                  >
+                {tip[lang] || tip.en}
+              </p>
+
                   {/* Bottom accent line */}
                   <div className="h-0.5 w-full bg-teal-600/20" />
                   {/* Tip number badge */}
-                  <span className="absolute top-3 right-3 text-xs text-slate-600 font-mono">
+                  <span className="absolute top-3 right-3 text-xs text-slate-400 dark:text-slate-600 font-mono">
                     {String(tip._key + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -198,7 +208,7 @@ export default function HeroIntro({ t, lang }) {
           {/* Next Arrow */}
           <button
             onClick={() => resetAuto("next")}
-            className="shrink-0 w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 hover:bg-slate-700 hover:text-teal-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:ring-offset-slate-950 cursor-pointer"
+            className="shrink-0 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-950 cursor-pointer"
             aria-label="Next tip"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -217,7 +227,7 @@ export default function HeroIntro({ t, lang }) {
                 setStartIndex(i);
                 autoRef.current = setInterval(() => slide("next"), 5000);
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${startIndex === i ? "w-6 bg-teal-500" : "w-1.5 bg-slate-700 hover:bg-slate-600"}`}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${startIndex === i ? "w-6 bg-teal-500" : "w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"}`}
               aria-label={`Go to tip set ${i + 1}`}
             />
           ))}
@@ -226,3 +236,4 @@ export default function HeroIntro({ t, lang }) {
     </section>
   );
 }
+

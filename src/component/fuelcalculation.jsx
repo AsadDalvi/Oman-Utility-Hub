@@ -9,10 +9,11 @@ const INITIAL_STATE = {
   commuteDays: "",
 };
 
-export default function FuelCalculation({ t, lang, onSubmit }) {
+export default function FuelCalculation({ t, lang, onSubmit, result, theme, setCalculationResult }) {
   const [form, setForm] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const isRtl = lang === "ar";
+  const isDark = theme === "dark";
 
   const locations = t.locations ? Object.entries(t.locations) : [];
   const cars = Array.isArray(t.cars) ? t.cars : Object.entries(t.cars || {});
@@ -103,20 +104,29 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
 
   const SelectField = ({ id, label, value, onChange, options, error, placeholder }) => (
     <div>
-      <label htmlFor={id} className="block text-xs font-medium text-slate-400 mb-1.5">
+      <label
+        htmlFor={id}
+          className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+          isDark ? "text-slate-400" : "text-slate-600"
+        }`}
+        >
         {label}
       </label>
       <select
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`
-          w-full bg-slate-800 border rounded-lg px-4 py-2.5
-          text-slate-100 text-sm
-          focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
+      className={`
+          w-full border rounded-lg px-4 py-2.5 text-sm
+          focus:outline-none focus:ring-2 focus:ring-teal-500
           transition-colors duration-150 cursor-pointer
-          ${error ? "border-red-600" : "border-slate-700 hover:border-slate-600"}
-        `}
+        ${
+           isDark
+              ? "bg-slate-800 border-slate-700 text-slate-100"
+              : "bg-white border-slate-300 text-slate-900"
+         }
+           ${error ? "border-red-600" : ""}
+            `}
       >
         <option value="" disabled>
           {placeholder || (isRtl ? "اختر..." : "Select...")}
@@ -131,8 +141,14 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
     </div>
   );
 
-  return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+    return (
+     <div
+        className={`rounded-2xl p-6 shadow-lg border transition-colors duration-300 ${
+         isDark
+          ? "bg-slate-900 border-slate-800 text-slate-100"
+           : "bg-white border-slate-200 text-slate-900"
+       }`}
+     >
       {/* Header */}
       <div className="flex items-center gap-2 mb-6" dir={isRtl ? "rtl" : "ltr"}>
         <div className="w-8 h-8 rounded-lg bg-teal-600/20 border border-teal-600/30 flex items-center justify-center">
@@ -140,7 +156,11 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
           </svg>
         </div>
-        <h2 className="text-base font-semibold text-slate-100">
+        <h2
+          className={`text-base font-semibold ${
+            isDark ? "text-slate-100" : "text-slate-900"
+            }`}
+              >
           {t.fuelTitle || (isRtl ? "احتساب تكاليف الوقود" : "Fuel Cost Calculator")}
         </h2>
       </div>
@@ -154,18 +174,35 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
 
   {/* Starting Location Dropdown Component */}
   <div>
-    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+    <label 
+    className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+       isDark ? "text-slate-400" : "text-slate-600"
+       }`}
+          >
       {t.labelStart}
     </label>
     <select
       value={form.startPoint}
       onChange={(e) => handleChange("startPoint", e.target.value)}
+    
       className={`
-        w-full bg-slate-800 border rounded-lg px-4 py-2.5
-        text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
-        transition-colors duration-150 cursor-pointer
-        ${errors.startPoint ? "border-red-600" : "border-slate-700 hover:border-slate-600"}
+        w-full border rounded-lg px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+       focus:ring-teal-500
+        transition-colors
+        duration-150
+        cursor-pointer
+        ${
+        isDark
+          ? "bg-slate-800 border-slate-700 text-slate-100"
+          : "bg-white border-slate-300 text-slate-900"
+        }
+      ${errors.destination ? "border-red-600" : ""}
       `}
+
+
     >
       <option value="">{t.optSelectLoc}</option>
       {Object.keys(t.locations).map((key) => (
@@ -181,18 +218,33 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
 
   {/* Destination Location Dropdown Component */}
   <div>
-    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+    <label
+       className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+         isDark ? "text-slate-400" : "text-slate-600"
+      }`}
+>
       {t.labelEnd}
     </label>
     <select
       value={form.destination}
       onChange={(e) => handleChange("destination", e.target.value)}
       className={`
-        w-full bg-slate-800 border rounded-lg px-4 py-2.5
-        text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
-        transition-colors duration-150 cursor-pointer
-        ${errors.destination ? "border-red-600" : "border-slate-700 hover:border-slate-600"}
-      `}
+        w-full border rounded-lg px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+       focus:ring-teal-500
+        transition-colors
+        duration-150
+        cursor-pointer
+      ${
+        isDark
+            ? "bg-slate-800 border-slate-700 text-slate-100"
+            : "bg-white border-slate-300 text-slate-900"
+          }
+        ${errors.destination ? "border-red-600" : ""}
+    `}
+
     >
       <option value="">{t.optSelectLoc}</option>
       {Object.keys(t.locations).map((key) => (
@@ -212,11 +264,14 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
 
           {/* Divider */}
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-slate-800" />
-            <span className="text-xs text-slate-500 shrink-0">
+            <div className={`flex-1 h-px ${isDark ? "bg-slate-800" : "bg-slate-300"}`} />
+            <span
+            className={`text-xs shrink-0 ${
+               isDark ? "text-slate-500" : "text-slate-600"
+              }`}
+            >
               {t.lblVehicleSection || (isRtl ? "تفاصيل المركبة" : "Vehicle Details")}
             </span>
-            <div className="flex-1 h-px bg-slate-800" />
           </div>
 
           {/* Vehicle Category */}
@@ -254,7 +309,12 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
 
           {/* Commute Days */}
           <div>
-            <label htmlFor="commuteDays" className="block text-xs font-medium text-slate-400 mb-1.5">
+            <label
+             htmlFor="commuteDays"
+                className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                isDark ? "text-slate-400" : "text-slate-600"
+              }`}
+          >
               {t.lblCommuteDays || (isRtl ? "أيام التنقل شهرياً" : "Commute Days Per Month")}
             </label>
             <div className="relative">
@@ -266,16 +326,24 @@ export default function FuelCalculation({ t, lang, onSubmit }) {
                 value={form.commuteDays}
                 onChange={(e) => handleChange("commuteDays", e.target.value)}
                 placeholder={isRtl ? "مثال: 22 (اليوم الواحد يشمل الذهاب والعودة معًا)": "e.g. 22 (1 day equals going and coming back)"}
-                className={`
-                  w-full bg-slate-800 border rounded-lg px-4 py-2.5
-                  text-slate-100 text-sm placeholder-slate-600
-                  focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
-                  transition-colors duration-150
-                  ${errors.commuteDays ? "border-red-600" : "border-slate-700 hover:border-slate-600"}
-                `}
-              />
+          className={`
+            w-full border rounded-lg px-4 py-2.5 text-sm
+            focus:outline-none focus:ring-2 focus:ring-teal-500
+            transition-colors duration-150
+          ${
+            isDark
+              ? "bg-slate-800 border-slate-700 text-slate-100 placeholder-slate-600"
+              : "bg-white border-slate-300 text-slate-900 placeholder-slate-400"
+            }
+          ${errors.commuteDays ? "border-red-600" : ""}
+          `}
+          />
 
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-500 pointer-events-none">
+              <span
+              className={`absolute right-4 top-1/2 -translate-y-1/2 text-xs pointer-events-none ${
+                  isDark ? "text-slate-500" : "text-slate-400"
+              }`}
+                >
                 {isRtl ? "يوم/شهر" : "days/mo"}
               </span>
             </div>

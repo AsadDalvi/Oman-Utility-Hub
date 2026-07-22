@@ -9,12 +9,14 @@ const INITIAL_STATE = {
   winterWaterHeater: false,
 };
 
-export default function RentCalculation({ t, lang, onSubmit, result }) {
+export default function RentCalculation({ t, lang, onSubmit, result, theme, setCalculationResult }) {
+
   const [form, setForm] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const isRtl = lang === "ar";
+  const isDark = theme === "dark";
 
-  // FIX: was result?.isEasterEgg in one block — kept, correct
+  // was result?.isEasterEgg in one block — kept, correct
   const isEasterEgg = result?.isEasterEgg === true;
 
   const validate = () => {
@@ -34,7 +36,7 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }, []);
 
-  // FIX: merged both versions — async fetch from first block, useCallback from second
+  // merged both versions — async fetch from first block, useCallback from second
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
@@ -67,7 +69,7 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
     [form, onSubmit]
   );
 
-  // FIX: passes a structured reset signal instead of null
+  // this passes a structured reset signal instead of null
   const handleReset = useCallback(() => {
     setForm(INITIAL_STATE);
     setErrors({});
@@ -117,8 +119,14 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
       )}
 
       {/* FIX: single unified form panel — orphaned second block merged here */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-6" dir={isRtl ? "rtl" : "ltr"}>
+      <div
+          className={`rounded-2xl p-6 shadow-lg transition-colors duration-200 ${
+            theme === "dark"
+              ? "bg-slate-900 border border-slate-800 text-slate-100"
+              : "bg-white border border-slate-200 text-slate-900"
+          }`}
+        >
+          <div className="flex items-center gap-2 mb-6" dir={isRtl ? "rtl" : "ltr"}>
           <div className="w-8 h-8 rounded-lg bg-teal-600/20 border border-teal-600/30 flex items-center justify-center">
             <svg
               className="w-4 h-4 text-teal-400"
@@ -133,14 +141,22 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
           </div>
-          <h2 className="text-base font-semibold text-slate-100">{t.rentHeading}</h2>
+          <h2
+            className={`text-base font-semibold ${
+             isDark ? "text-slate-100" : "text-slate-900"
+             }`}
+            >
+              {t.rentHeading}
+          </h2>
         </div>
 
         <form onSubmit={handleSubmit} noValidate dir={isRtl ? "rtl" : "ltr"}>
           <div className="space-y-5">
             {/* Monthly Rent */}
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">
+              <label className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                     isDark ? "text-slate-400" : "text-slate-600"
+                      }`}>
                 {t.labelRentBudget}
               </label>
               <input
@@ -149,9 +165,15 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
                 value={form.monthlyRent}
                 onChange={(e) => handleChange("monthlyRent", e.target.value)}
                 placeholder={isRtl ? "مثال: 250" : "e.g. 250"}
-                className={`w-full bg-slate-800 border rounded-lg px-4 py-2.5 text-slate-100 text-sm placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors duration-150 ${
-                  errors.monthlyRent ? "border-red-600" : "border-slate-700 hover:border-slate-600"
-                }`}
+                className={`w-full border rounded-lg px-4 py-2.5 text-sm placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors duration-150 ${
+                  isDark
+                  ? "bg-slate-800 border-slate-700 text-slate-100 placeholder-slate-600"
+                : "bg-white border-slate-300 text-slate-900 placeholder-slate-400"
+                  } ${
+                   errors.monthlyRent
+                   ? "border-red-600"
+                     : ""
+                  }`}
               />
               {errors.monthlyRent && (
                 <p className="mt-1 text-xs text-red-400">{errors.monthlyRent}</p>
@@ -160,15 +182,25 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
 
             {/* Property Size */}
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">
+              <label className={`block text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                    isDark ? "text-slate-400" : "text-slate-600"
+                }`}>
                 {t.labelPropSize}
               </label>
               <select
                 value={form.propertySize}
                 onChange={(e) => handleChange("propertySize", e.target.value)}
-                className={`w-full bg-slate-800 border rounded-lg px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors duration-150 cursor-pointer ${
-                  errors.propertySize ? "border-red-600" : "border-slate-700 hover:border-slate-600"
-                }`}
+                
+               className={`w-full border rounded-lg px-4 py-2.5 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors duration-150 ${
+                isDark
+                ? "bg-slate-800 border-slate-700 text-slate-100"
+                : "bg-white border-slate-300 text-slate-900"
+              } ${
+                errors.propertySize
+                  ? "border-red-600"
+                  : ""
+              }`}
+
               >
                 <option value="" disabled>
                   {t.optSelectSize}
@@ -187,8 +219,18 @@ export default function RentCalculation({ t, lang, onSubmit, result }) {
             {/* AC Hours Slider */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-medium text-slate-400">{t.labelAcHours}</label>
-                <span className="text-sm font-semibold text-teal-400 tabular-nums">
+                <label
+                   className={`text-xs font-semibold uppercase tracking-wider ${
+                      isDark ? "text-slate-400" : "text-slate-600"
+                        }`}
+                      >  {t.labelAcHours}</label>
+                <span
+                  className={`text-sm font-bold tabular-nums px-2 py-0.5 rounded ${
+                        isDark
+                          ? "text-teal-400 bg-teal-950/40"
+                          : "text-teal-700 bg-teal-100"
+                        }`}
+                        >
                   {form.acHours}h
                 </span>
               </div>
