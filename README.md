@@ -10,7 +10,7 @@ A version 2 of updated Oman Smart Utility Hub with responsive full-stack web app
 * **Salary & Rent Budget Planner:** Computes rent-to-income percentage allocations with a zero-dependency SVG donut chart and high-visibility financial stress alerts.
 * **Utility Cost Ledger:** Interactive baseline checklist tracker featuring multi-segment stacked progress bars and dynamic safety ceilings that adapt based on the user's active salary profile.
 * **Dual-State Theme Selector:** Integrated global navbar controls to flip the interface canvas instantly between obsidian dark and crisp light themes.
-* **Web-Native Mobile Haptics:** Connects browser hardware API channels to emit tactile 15ms click pulses on buttons and continuous 5ms micro-vibrations on input range sliders.
+* **Web-Native Mobile Haptics:** Connects browser hardware API channels to emit tactile 15ms click pulses on buttons.
 
 
 ## 📂 Tech Stack
