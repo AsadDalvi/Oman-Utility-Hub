@@ -122,8 +122,7 @@ function calculateFuelCommute(startPoint, endPoint, carType, engineSize, fuelTyp
     // Get distance between selected locations
     const distanceLookup = DISTANCE_MATRIX[startPoint]?.[endPoint];
     const oneWayDistance = distanceLookup !== undefined ? distanceLookup : 15; 
-
-    // FIXED: Replaced 'distanceKm' with 'oneWayDistance' to resolve your reference error crash! [🔗]
+    
     const totalKmPerMonth = oneWayDistance * 2 * daysPerMonth;
 
     // Get vehicle fuel consumption (L/100km)
@@ -142,7 +141,7 @@ function calculateFuelCommute(startPoint, endPoint, carType, engineSize, fuelTyp
     const fuelSavingsOMR = totalCostOMR * 0.20;
 
     return {
-        oneWayDistance: oneWayDistance, // FIXED here as well
+        oneWayDistance: oneWayDistance, 
         monthlyDistance: totalKmPerMonth,
         litersConsumed: Number(totalLiters.toFixed(1)),
         monthlyCost: Number(totalCostOMR.toFixed(3)),
