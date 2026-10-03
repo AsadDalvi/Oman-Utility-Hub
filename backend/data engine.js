@@ -36,7 +36,6 @@ const DISTANCE_MATRIX = {
 
 
 // 4. Rent & Home Utility Engine according to Authority for Public Services Regulation (APSR) Tariffs
-// FIXED: Renamed function to match your server.js API request references! [🔗]
 function calculateRentUtilities(propertySize, acUsageHours, includeWaterHeater) {
     
     // 7BHK Easter Egg Trigger (Sends a flag to freeze the UI)
